@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Lavii... 🍓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pink: #ffe3e8;
+            --deep-red: #c21e3b;
+            --soft-red: #ff4d6d;
+            --text-color: #5a3a3a;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, var(--bg-pink), #ffc2d1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Floating Background Strawberries */
+        .bg-berry {
+            position: fixed; font-size: 30px; opacity: 0.15;
+            animation: float 8s infinite ease-in-out; z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--deep-red);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--soft-red);
+        }
+
+        /* The Interactive Sorry Game */
+        .strawberry-patch {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .berry-item {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .berry-item:hover { transform: scale(1.1); }
+
+        .berry-emoji {
+            font-size: 60px;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.4s ease-out;
+            z-index: 2;
+        }
+
+        .hidden-letter {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--deep-red);
+            opacity: 0;
+            transition: all 0.4s ease-in;
+            z-index: 1;
+        }
+
+        /* Revealed State */
+        .berry-item.revealed .berry-emoji {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .berry-item.revealed .hidden-letter {
+            opacity: 1;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { transform: translate(-50%, -50%) scale(0); } to { transform: translate(-50%, -50%) scale(1); } }
+
+        /* The Final Apology Letter (Initially Hidden) */
+        .apology-letter {
+            display: none; /* Hidden until game is won */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(194, 30, 59, 0.1);
+            border: 2px solid var(--soft-red);
+            animation: slideUp 0.8s ease-out;
+            text-align: left;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .apology-letter p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .highlight { font-weight: 600; color: var(--deep-red); }
+
+        .final-btn {
+            background: var(--deep-red);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(194, 30, 59, 0.3);
+            display: block;
+            margin: 30px auto 0;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-berry" style="top: 10%; left: 5%;">🍓</div>
+    <div class="bg-berry" style="top: 30%; right: 10%; animation-delay: 1s;">🍓</div>
+    <div class="bg-berry" style="bottom: 20%; left: 15%; animation-delay: 2s;">🍓</div>
+    <div class="bg-berry" style="bottom: 10%; right: 20%; animation-delay: 3s;">🍓</div>
+
+    <div class="container">
+        <h1>Lavii...</h1>
+        <p class="subtitle" id="instruction">There's something hidden in the strawberries for you. Tap them.</p>
+
+        <div class="strawberry-patch">
+            <div class="berry-item" onclick="reveal(this)">
+                <div class="berry-emoji">🍓</div>
+                <div class="hidden-letter">S</div>
+            </div>
+            <div class="berry-item" onclick="reveal(this)">
+                <div class="berry-emoji">🍓</div>
+                <div class="hidden-letter">O</div>
+            </div>
+            <div class="berry-item" onclick="reveal(this)">
+                <div class="berry-emoji">🍓</div>
+                <div class="hidden-letter">R</div>
+            </div>
+            <div class="berry-item" onclick="reveal(this)">
+                <div class="berry-emoji">🍓</div>
+                <div class="hidden-letter">R</div>
+            </div>
+            <div class="berry-item" onclick="reveal(this)">
+                <div class="berry-emoji">🍓</div>
+                <div class="hidden-letter">Y</div>
+            </div>
+        </div>
+
+        <div class="apology-letter" id="finalMessage">
+            <p>Shreya,</p>
+            <p>I didn't just want to say it; I wanted to mean it. I've noticed things have been quiet between us, and honestly, it’s really bothering me.</p>
+            <p>Please tell me, <span class="highlight">kya huya?</span></p>
+            <p>If I did something unknowingly to hurt you, or if something else is wrong, please share it with me. Not knowing why you are <span class="highlight">naraz</span> is the hardest part.</p>
+            <p>You are very special to me, and I don't want any distance between us. I am truly sorry if I messed up. Let's fix this? 🥺</p>
+            <p style="text-align: right; font-weight: bold;">- Ritik</p>
+
+            <a href="https://wa.me/919876543210" class="final-btn">Talk to me?</a>
+        </div>
+
+    </div>
+
+    <script>
+        let revealedCount = 0;
+        const totalBerries = 5;
+
+        function reveal(element) {
+            // Only reveal if it hasn't been revealed yet
+            if (!element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+                revealedCount++;
+
+                // Check if all letters are found
+                if (revealedCount === totalBerries) {
+                    setTimeout(() => {
+                        // Hide instruction and show the letter
+                        document.getElementById('instruction').style.display = 'none';
+                        document.getElementById('finalMessage').style.display = 'block';
+                        // Smooth scroll to the message
+                        document.getElementById('finalMessage').scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
